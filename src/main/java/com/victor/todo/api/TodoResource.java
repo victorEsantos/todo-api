@@ -1,4 +1,4 @@
-package com.victor.todo.resources;
+package com.victor.todo.api;
 
 import java.net.URI;
 import java.util.List;
@@ -31,6 +31,18 @@ public class TodoResource {
 	@GetMapping
 	public ResponseEntity<List<Todo>> findAll() {
 		List<Todo> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping(value = "/open")
+	public ResponseEntity<List<Todo>> findOpen() {
+		List<Todo> list = service.findAllOpen();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping(value = "/close")
+	public ResponseEntity<List<Todo>> findClose() {
+		List<Todo> list = service.findAllClose();
 		return ResponseEntity.ok().body(list);
 	}
 	

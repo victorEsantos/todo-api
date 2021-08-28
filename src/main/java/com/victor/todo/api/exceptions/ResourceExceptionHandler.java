@@ -1,4 +1,4 @@
-package com.victor.todo.resources.exceptions;
+package com.victor.todo.api.exceptions;
 
 import javax.servlet.ServletRequest;
 

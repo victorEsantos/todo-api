@@ -2,6 +2,7 @@ package com.victor.todo.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,23 +19,25 @@ public class Todo implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String title;
 	private String description;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy hh:MM:ss")
-	private LocalDateTime createdDate;
-	
-	private Boolean done;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy hh:MM:ss")
-	private LocalDateTime finishedDate;
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date createdDate;
+
+	private boolean done;
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date finishedDate;
 
 	public Todo() {
 		super();
 	}
 
-	public Todo(Integer id, String description, LocalDateTime createdDate, Boolean done, LocalDateTime finishedDate) {
+	public Todo(Integer id,String title , String description, Date createdDate, Boolean done, Date finishedDate) {
 		super();
 		this.id = id;
+		this.title = title;
 		this.description = description;
 		this.createdDate = createdDate;
 		this.done = done;
@@ -43,7 +46,7 @@ public class Todo implements Serializable{
 	
 	public void markAsDone() {
 		this.done = true;
-		this.finishedDate = LocalDateTime.now();
+		this.finishedDate = new Date();
 	}
 
 	public Integer getId() {
@@ -54,6 +57,14 @@ public class Todo implements Serializable{
 		this.id = id;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -62,11 +73,11 @@ public class Todo implements Serializable{
 		this.description = description;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -78,11 +89,11 @@ public class Todo implements Serializable{
 		this.done = done;
 	}
 
-	public LocalDateTime getFinishedDate() {
+	public Date getFinishedDate() {
 		return finishedDate;
 	}
 
-	public void setFinishedDate(LocalDateTime finishedDate) {
+	public void setFinishedDate(Date finishedDate) {
 		this.finishedDate = finishedDate;
 	}
 

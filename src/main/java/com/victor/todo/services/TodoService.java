@@ -1,6 +1,7 @@
 package com.victor.todo.services;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +31,14 @@ public class TodoService {
 
 	public Todo insert(Todo obj) {
 		obj.setId(null);
-		obj.setCreatedDate(LocalDateTime.now());
-		return !obj.getDescription().isEmpty() && obj.getDescription().length() > 3 ? repository.save(obj) : null;
+		obj.setCreatedDate(new Date());
+		return repository.save(obj);
 
 	}
 
 	public Todo update(Todo obj) {
-		LocalDateTime date = findById(obj.getId()).getCreatedDate();
-		Todo newObj = new Todo(obj.getId(), obj.getDescription(), date, obj.getDone(), obj.getFinishedDate());
+		var date = findById(obj.getId()).getCreatedDate();
+		Todo newObj = new Todo(obj.getId(),obj.getTitle(), obj.getDescription(), date, obj.getDone(), obj.getFinishedDate());
 		return repository.save(newObj);
 	}
 
@@ -52,8 +53,19 @@ public class TodoService {
 	public Todo markAsDone(Integer id) {
 		Todo obj = findById(id);
 		obj.setDone(true);
-		obj.setFinishedDate(LocalDateTime.now());
+		obj.setFinishedDate(new Date());
 		return repository.save(obj);
 	}
 
+	public List<Todo> findAllOpen() {
+		List<Todo> list = repository.findAllOpen();
+
+		return list;
+	}
+
+	public List<Todo> findAllClose() {
+		List<Todo> list = repository.findAllClose();
+
+		return list;
+	}
 }
